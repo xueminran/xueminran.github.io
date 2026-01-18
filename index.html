@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Minran — Portfolio</title>
+    <title>Minran Xue — Selected Works</title>
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -12,42 +12,196 @@
     <!-- Header -->
     <header>
         <h1>Minran Xue</h1>
-        <p class="subtitle">Architectural Designer · Computational Design · Digital Fabrication</p>
-        <hr>
+        <p class="subtitle">Robotic 3D Printing x Computational Design</p>
+        
     </header>
 
     <!-- Intro Section -->
     <section class="intro">
-        <h2>About Me</h2>
-        <p>
-            I am an architectural designer specializing in parametric design, installation design, and digital construction.
-            My work explores computational methods, optimization algorithms, and mixed reality tools for fabrication accuracy.
-        </p>
+        <h2>- background & experience -</h2>
+        <div class="group">
+            <div class="item">
+                <span class="date">2016 - 2021</span>
+                <span class="desc">BArch in Architecture, Southeast University, China</span>
+            </div>
+    
+            <div class="item">
+                <span class="date">2021 - 2022</span>
+                <span class="desc">MArch in Design for Manufacture, UCL, UK</span>
+            </div>
+        </div>
+
+        <div class="group">
+            <div class="item">
+                <span class="date">05.2023 - 02.2025</span>
+                <span class="desc">Architectural Assistant, Mamou-Mani Architects, London</span>
+            </div>
+    
+            <div class="item">
+                <span class="date">02.2025 - present</span>
+                <span class="desc">Robotics Technician, Fab Pub, London</span>
+            </div>
+        </div>
+        
     </section>
 
-    <hr>
+    
 
     <!-- Projects Section -->
     <section class="projects">
-        <h2>Selected Works</h2>
+        <h2>- selected works -</h2>
 
-        <div class="project">
-            <img src="images/project1.jpg" alt="">
-            <h3>Project Title 1</h3>
-            <p>A short description of your project. What is it about? What was your role?</p>
-        </div>
+        <div class="layout">
 
-        <div class="project">
-            <img src="images/project2.JPG" alt="">
-            <h3>Project Title 2</h3>
-            <p>An installation or parametric design project, fabrication workflow, or academic research.</p>
-        </div>
+            <div class="toc"></div>
 
-        <div class="project">
-            <img src="images/project3.JPG" alt="">
-            <h3>Project Title 3</h3>
-            <p>A computational or optimization-based design using Java, Processing or mixed reality tools.</p>
+            <div class="slider">
+                <div class="image-container">
+                    <img id="sliderImage" src="images/page01.jpg" alt="Selected Works" />
+                </div>
+        
+                <div class="controls">
+                    <div class="arrow" id="prev">
+                        <span class="icon">◀</span>
+                    </div>
+                    <div class="page-number"></div>
+                    <div class="arrow" id="next">
+                        <span class="icon">▶</span>
+                    </div>
+                </div>
+            </div>
+           
+
         </div>
+        
+
+        <script>
+            const projects = [
+                {title:"FABRIC-CLAY-TION"},
+                {title:"VERTICAL COMMUNITY"},
+                {title:"WEARABLE TABLETOP"},
+                {title:"PARADOXYLON"},
+                {title:"THE PAVILION OF BIRDS"},
+                {title:"TIMBER PAVILION"},
+                {title:"PANCRAS WAY EXTERIOR"},
+                {title:"TWIST"},
+                {title:"SUSPENDED SCULPTURE"},
+                {title:"3D-PRINTED LUMIOUS FEATURE WALL"},
+                {title:"STOREHOUSE ELEVATED WALKWAYS (BALUSTRADES)"},
+                {title:"KOREAN ARCHITECTURE INSTALLATION"},
+                {title:"A PAUSE IN A RUSH"},
+                {title:"'PARKET':A PARK-MIXED MARKET"},
+                {title:"IN-BEAM, OUT-BEAM"},
+                {title:"ARCHITECTURAL SURVEY: BAGAYA MONASTERY"},
+            ]
+
+            const pages = [
+                {image:'images/page01.jpg',projectId:[0]},
+                {image:'images/page02.jpg',projectId:[0]},
+                {image:'images/page03.jpg',projectId:[1]},
+                {image:'images/page04.jpg',projectId:[2,3]},
+                {image:'images/page05.jpg',projectId:[4,5]},
+                {image:'images/page06.jpg',projectId:[6]},
+                {image:'images/page07.jpg',projectId:[7,8]},
+                {image:'images/page08.jpg',projectId:[9]},
+                {image:'images/page09.jpg',projectId:[10,11]},
+                {image:'images/page10.jpg',projectId:[12]},
+                {image:'images/page11.jpg',projectId:[13]},
+                {image:'images/page12.jpg',projectId:[14]},
+                {image:'images/page13.jpg',projectId:[15]}
+            ];
+
+            let currentIndex = 0;
+            const imgElement = document.getElementById('sliderImage');
+            const prevBtn = document.getElementById('prev');
+            const nextBtn = document.getElementById('next');
+            let pageNum = (currentIndex+1) + '/' + pages.length;
+            const pageNumElement = document.querySelector('.page-number');
+
+            function buildTOC(){
+                const toc = document.querySelector('.toc');
+
+                projects.forEach((project,index) =>{
+                    const item = document.createElement('div');
+                    item.className = 'toc-item';
+                    item.textContent = project.title;
+
+                    item.onclick = ()=>{
+                        const pageIndex = pages.findIndex(page => page.projectId.includes(index));
+
+                        if(pageIndex !== -1){
+                            currentIndex = pageIndex;
+                            imgElement.src = pages[currentIndex].image;
+                            updateArrows();
+                            updatePageNum();
+                            updateTOC();
+                        }
+                    };
+                    toc.appendChild(item);
+
+                });
+            }
+
+            function updateTOC(){
+                const items = document.querySelectorAll('.toc-item');
+                const activeProjects = pages[currentIndex].projectId;
+
+                items.forEach((item,index)=>{
+                    if(activeProjects.includes(index)){
+                        item.classList.add('active');
+                    }else{
+                        item.classList.remove('active');
+                    }
+                });
+            }
+
+            function updateArrows(){
+                if (currentIndex === 0){
+                    prevBtn.style.visibility = 'hidden';
+                } else {
+                    prevBtn.style.visibility = 'visible';
+                }
+                if (currentIndex === pages.length - 1){
+                    nextBtn.style.visibility = 'hidden';
+                } else {
+                    nextBtn.style.visibility = 'visible';
+                }
+            }
+
+            function updatePageNum(){
+                pageNum = (currentIndex+1) + '/' + pages.length;
+                pageNumElement.textContent = pageNum;
+            }
+
+            //intialise
+            imgElement.src = pages[currentIndex].image;
+            buildTOC();
+            updateArrows();
+            updatePageNum();
+            updateTOC();
+
+            prevBtn.onclick = () => {
+                if (currentIndex > 0){
+                    currentIndex--;
+                    imgElement.src = pages[currentIndex].image;
+                    updateArrows();
+                    updatePageNum();
+                    updateTOC();
+                }
+            };
+
+            nextBtn.onclick = () => {
+                if (currentIndex < pages.length -1){
+                    currentIndex++;
+                    imgElement.src = pages[currentIndex].image;
+                    updateArrows();
+                    updatePageNum();
+                    updateTOC();
+                }
+            };
+
+
+        </script>
 
     </section>
 
@@ -55,8 +209,7 @@
 
     <!-- Contact -->
     <footer>
-        <p>Email</p>
-        <p>© 2025 Minran Xue</p>
+        <p>© 2026 Minran Xue</p>
     </footer>
 
 </body>
