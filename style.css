@@ -12,7 +12,6 @@ body {
 
 h1 {
     font-weight: 400;
-
 }
 
 h2, h3 {
@@ -67,6 +66,29 @@ hr {
     align-items:flex-start;
 }
 
+@media (max-width: 768px) {
+
+    .layout {
+        justify-content: center;
+    }
+
+    .toc {
+        display:none;
+    }
+
+    .image-container {
+        width:100vw;
+        max-width:1000px;
+        margin:0 auto;
+    }
+    
+    .image-container img{
+        width:100%;
+        display:block;
+    }
+
+}
+
 .image-container {
     width:70vw;
     max-width:1000px;
@@ -76,12 +98,13 @@ hr {
 .image-container img{
     width:100%;
     display:block;
+    border: 1px solid #eee;
 }
 
 .toc{
-    width:250px;
+    width:30vw;
     margin-right:40px;
-    font-size:14px;
+    font-size: clamp(4px, 1vw, 14px); 
 }
 
 .toc-item{
@@ -129,22 +152,6 @@ hr {
     color: #fff;
 }
 
-
-
-
-.projects .project {
-    margin-bottom: 60px;
-}
-
-.projects img {
-    width: 100%;
-    margin-bottom: 15px;
-    border: 1px solid #eee;
-}
-
-.projects h3 {
-    margin-top: 0;
-}
 
 /* ----- Footer ----- */
 footer {
